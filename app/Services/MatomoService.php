@@ -142,11 +142,11 @@ class MatomoService
             ->connectTimeout(self::CONNECT_TIMEOUT_SECONDS)
             ->timeout(self::TIMEOUT_SECONDS)
             ->post(config('services.matomo.url').'/index.php', array_merge([
-            'module' => 'API',
-            'method' => $method,
-            'format' => 'json',
-            'token_auth' => config('services.matomo.auth_token'),
-        ], $params));
+                'module' => 'API',
+                'method' => $method,
+                'format' => 'json',
+                'token_auth' => config('services.matomo.auth_token'),
+            ], $params));
 
         $response->throw();
 
