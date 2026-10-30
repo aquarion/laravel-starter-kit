@@ -114,3 +114,17 @@ npm run format:check  # Biome format check
 `GET /version` returns `{"version", "pr_number", "branch"}` as JSON, sourced
 from the `APP_VERSION`, `APP_PR_NUMBER`, and `APP_BRANCH` env vars via
 `config('version')`.
+
+## Matomo analytics
+
+Set `MATOMO_URL` and `MATOMO_AUTH_TOKEN` to enable tracking. On first request,
+`App\Services\MatomoService` finds the Matomo site whose main URL matches
+`APP_URL` (creating it if missing), ensures every goal listed in
+`config('services.matomo.goals')` exists, and caches the result for an hour.
+If either env var is unset, or the Matomo API fails (logged as a warning), no
+tracker is rendered.
+
+Include `@include('partials.matomo')` in a layout's `<head>` to load the
+tracker (the welcome page already does). `resources/js/matomo.js` exports
+`trackPageView`, `trackEvent` and `trackGoal('<goal key>')` helpers; all are
+no-ops when Matomo is not configured.
