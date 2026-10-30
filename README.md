@@ -4,6 +4,11 @@ A Laravel 13 starter kit with version exposure, OpenTelemetry (backend + browser
 a dev-only Cloudflare tunnel, Pest test config, and a full CI/CD + Dependabot
 pipeline pre-wired. Infra/ops scope only — no frontend framework opinion.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md). Record notable changes under **Unreleased**
+in the same PR that makes them.
+
 ## Getting started
 
 > Plain `composer create-project istic/laravel-starter-kit` won't resolve yet —
@@ -114,3 +119,17 @@ npm run format:check  # Biome format check
 `GET /version` returns `{"version", "pr_number", "branch"}` as JSON, sourced
 from the `APP_VERSION`, `APP_PR_NUMBER`, and `APP_BRANCH` env vars via
 `config('version')`.
+
+## Matomo analytics
+
+Set `MATOMO_URL` and `MATOMO_AUTH_TOKEN` to enable tracking. On first request,
+`App\Services\MatomoService` finds the Matomo site whose main URL matches
+`APP_URL` (creating it if missing), ensures every goal listed in
+`config('services.matomo.goals')` exists, and caches the result for an hour.
+If either env var is unset, or the Matomo API fails (logged as a warning), no
+tracker is rendered.
+
+Include `@include('partials.matomo')` in a layout's `<head>` to load the
+tracker (the welcome page already does). `resources/js/matomo.js` exports
+`trackPageView`, `trackEvent` and `trackGoal('<goal key>')` helpers; all are
+no-ops when Matomo is not configured.
