@@ -4,6 +4,11 @@ A Laravel 13 starter kit with version exposure, OpenTelemetry (backend + browser
 a dev-only Cloudflare tunnel, Pest test config, and a full CI/CD + Dependabot
 pipeline pre-wired. Infra/ops scope only — no frontend framework opinion.
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md). Record notable changes under **Unreleased**
+in the same PR that makes them.
+
 ## Getting started
 
 > Plain `composer create-project istic/laravel-starter-kit` won't resolve yet —
