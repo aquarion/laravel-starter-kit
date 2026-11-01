@@ -19,6 +19,16 @@ The kit has no tagged releases yet, so earlier entries are grouped by date.
   and failed lookups are cached for five minutes.
 - This changelog.
 
+### Fixed
+
+- `dependabot-auto-merge.yml` now runs on `pull_request_target` instead of
+  `pull_request`, so it gets repo secrets and a writable `GITHUB_TOKEN` on
+  Dependabot-opened PRs. It passes `REBASE_TOKEN` to the shared workflow as
+  `MERGE_TOKEN`, so its merges trigger other workflows: CI on the
+  `dependabot-updates` aggregate PR, and `dependabot-main-release.yml` for
+  security updates merged into `main`. Before this, those releases never
+  fired. Projects built from the kit need the `REBASE_TOKEN` secret set.
+
 ## 2026-10-29
 
 ### Added
